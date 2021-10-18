@@ -3,6 +3,7 @@
 
 import os
 
+print("format.py Enter")
 #Unmount the USB stick
 os.system("sudo umount /mnt/usb")
 
@@ -29,3 +30,6 @@ with open("/opt/USBGuardian/logs/report.log") as report:
 		elif "VFAT" in line:
 			os.system("sudo mkfs.vfat -I /dev/sd[a-z][0-9]")
 			break
+
+print("format.py Exit")
+print("###")

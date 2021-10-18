@@ -3,7 +3,7 @@
 
 import os
 
-
+print("checkFormat.py Enter")
 #Open the file in which format info is stored
 checkFormat = open('/opt/USBGuardian/scripts/checkFormat',"r")
 formatOK=0
@@ -33,4 +33,8 @@ os.system("sudo rm /opt/USBGuardian/scripts/checkFormat")
 
 #Execute the scan
 if formatOK==0:
-	os.system("sudo /opt/USBGuardian/scripts/scan.py")
+	print("checkFormat OK")
+	print("checkFormat Exit")
+	print("###")
+	os.system("sudo python3 /opt/USBGuardian/scripts/scan.py")
+

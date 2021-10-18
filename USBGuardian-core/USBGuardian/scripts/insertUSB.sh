@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "insertUSB.sh Enter"
 #Unmount usb stick in case there is an old one
 sudo umount /mnt/usb
 
@@ -40,6 +40,8 @@ sudo chmod +r+w /opt/USBGuardian/scripts/checkFormat
 sudo mount | grep /mnt/usb > /opt/USBGuardian/scripts/checkFormat
 
 #Launch python script 
+echo "insertUSB Exit"
+echo "###"
 sudo python3 /opt/USBGuardian/scripts/checkFormat.py
 
 #If the format is supported start the scan

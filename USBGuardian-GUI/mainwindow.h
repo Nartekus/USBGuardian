@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QFileSystemWatcher>
 #include <QProcess>
+#include <QKeyEvent>
 #include "details.h"
 
 namespace Ui {
@@ -42,8 +43,7 @@ private slots:
     void switchImgSlider();
     void on_btn_cancel_analyze_clicked();
     void exceptionMessageUsbRemoved();
-    void keyPressEvent(QKeyEvent *event);
-	
+    //void keyPressEvent(QKeyEvent *event);
     void on_btn_close_exceptionView_clicked();
 
 private:

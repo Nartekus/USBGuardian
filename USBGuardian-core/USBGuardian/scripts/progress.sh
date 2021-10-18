@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "progress.sh Enter"
 # Go to mounted usb  
 cd /mnt/usb/
 percentage=0
@@ -54,3 +54,6 @@ do
 	# Slow down the speed of listening
 	sleep "$sDuration"
 done
+
+echo "progress.sh Exit"
+echo "###"

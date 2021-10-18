@@ -1,4 +1,4 @@
-﻿ #include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QThread>
 #include <QFileSystemWatcher>
@@ -8,6 +8,7 @@
 #include <QStorageInfo>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QRegularExpression>
 
 #include "details.h"
 
@@ -129,7 +130,7 @@ void MainWindow::analyzeReport(const QString &path)
         // Go to error view and then after 5 seconds go back to home view
         ui->stackedWidget->setCurrentIndex(4);
         QTimer::singleShot(5000, this, SLOT(gotoHomeView()));
-    } else if (fileContent.contains("SCAN SUMMARY") && fileContent.contains("End of analysis")) {
+    } else if (fileContent.contains("End of analysis")) {
         // If the analysis is over go to report view
         loadReportView(path);
         scanDone = false;
@@ -169,6 +170,21 @@ void MainWindow::loadReportView(const QString &path)
     QRegularExpressionMatch matchExpression = regexInfectedFiles.match(map.value("Infected files"));
     // false if infected
     bool isMatch = matchExpression.hasMatch();
+
+    /*QMessageBox nartekTest;
+    if (isMatch) {nartekTest.setText("TRUE");}
+    else if (!isMatch) {nartekTest.setText("FALSE");}
+    else {nartekTest.setText("WTF");}
+    nartekTest.setIcon(QMessageBox::Warning);
+    nartekTest.setStandardButtons(QMessageBox::Ok);
+
+    int exec = nartekTest.exec();
+    switch (exec) {
+    case QMessageBox::Ok:
+        break;
+    default:
+        break;
+    }*/
 
     QString removedPattern= "Removed";
     // If the button remove malware was pushed and the malware removed
@@ -219,7 +235,7 @@ void MainWindow::processProgOutput(){
         ui->progressBar->setValue(fileOkPercentage.toInt());
         if (ui->progressBar->value() >= 99 && scanDone == false){
             scanDone = true;
-            processProg->close()
+            processProg->close();
         }
     }
 }
@@ -233,6 +249,26 @@ void MainWindow::on_btn_information_clicked()
 {
     loadInformationView("/opt/USBGuardian/statistics.txt");
     ui->stackedWidget->setCurrentIndex(5);
+}
+
+void MainWindow::confirmDeviceRestart()
+{
+    QMessageBox messageBox;
+    messageBox.setText("Are you sure you want to restart the device?");
+    messageBox.setIcon(QMessageBox::Warning);
+    messageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
+
+    int exec = messageBox.exec();
+    switch (exec) {
+    case QMessageBox::Yes:
+        process->start("/opt/USBGuardian/scripts/reboot.sh");
+        process->waitForFinished();
+        break;
+    case QMessageBox::Cancel:
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::on_btn_restart_welcomeView_clicked()
@@ -260,24 +296,15 @@ void MainWindow::on_btn_restart_exceptionView_clicked()
     confirmDeviceRestart();
 }
 
-void MainWindow::confirmDeviceRestart()
-{
-    QMessageBox messageBox;
-    messageBox.setText("Are you sure you want to restart the device?");
-    messageBox.setIcon(QMessageBox::Warning);
-    messageBox.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
-
-    int exec = messageBox.exec();
-    switch (exec) {
-    case QMessageBox::Yes:
-        process->start("/opt/USBGuardian/scripts/reboot.sh");
-        process->waitForFinished();
-        break;
-    case QMessageBox::Cancel:
-        break;
-    default:
-        break;
-    }
+void MainWindow::removeVirus(){
+    ui->progressBar->setValue(0);
+    ui->stackedWidget->setCurrentIndex(1);
+    ui->label_analyze_view_title->setText("Removing malwares");
+    scanDone = false;
+    removeAction = true;
+    QProcess pScan;
+    pScan.startDetached("python3 /opt/USBGuardian/scripts/scanAndRemove.py");
+    processProg->start("/opt/USBGuardian/scripts/progress.sh");
 }
 
 void MainWindow::on_btnRemove_clicked()
@@ -299,15 +326,21 @@ void MainWindow::on_btnRemove_clicked()
     }
 }
 
-void MainWindow::removeVirus(){
-    ui->progressBar->setValue(0);
-    ui->stackedWidget->setCurrentIndex(1);
-    ui->label_analyze_view_title->setText("Removing malwares");
-    scanDone = false;
-    removeAction = true;
-    QProcess pScan;
-    pScan.startDetached("python3 /opt/USBGuardian/scripts/scanAndRemove.py");
-    processProg->start("/opt/USBGuardian/scripts/progress.sh");
+void MainWindow::formatUSB(){
+    QProcess pFormat;
+    pFormat.start("python3 /opt/USBGuardian/scripts/formatUSB.py");
+    pFormat.waitForFinished();
+    QMessageBox messageBox;
+    messageBox.setText("Your USB drive have been successfully formatted.");
+    messageBox.setIcon(QMessageBox::Information);
+    messageBox.setStandardButtons(QMessageBox::Ok);
+    int exec = messageBox.exec();
+    switch (exec) {
+    case QMessageBox::Ok:
+        break;
+    default:
+        break;
+    }
 }
 
 void MainWindow::on_btnFormat_clicked()
@@ -324,23 +357,6 @@ void MainWindow::on_btnFormat_clicked()
         formatUSB();
         break;
     case QMessageBox::Cancel:
-        break;
-    default:
-        break;
-    }
-}
-
-void MainWindow::formatUSB(){
-    QProcess pFormat;
-    pFormat.start("python3 /opt/USBGuardian/scripts/formatUSB.py");
-    pFormat.waitForFinished();
-    QMessageBox messageBox;
-    messageBox.setText("Your USB drive have been successfully formatted.");
-    messageBox.setIcon(QMessageBox::Information);
-    messageBox.setStandardButtons(QMessageBox::Ok);
-    int exec = messageBox.exec();
-    switch (exec) {
-    case QMessageBox::Ok:
         break;
     default:
         break;

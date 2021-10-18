@@ -10,6 +10,7 @@ from statistics import infectedDevicesCount
 from statistics import deviceCount
 from statistics import totalTimeOfScan
 
+print("scan.py Enter")
 #Check if autorun file exist on usb device
 if os.path.isfile("/mnt/usb/Autorun.inf"):
 	os.system("sudo mv /mnt/usb/Autorun.inf /mnt/usb/Autorun.inf.MALICIOUS")
@@ -69,3 +70,6 @@ with open("/opt/USBGuardian/logs/report.log") as report2, open ("/opt/USBGuardia
 	#Copy the content
 	reportLines = report2.readlines()
 	history.writelines(reportLines)
+
+print("scan.py Exit")
+print("###")

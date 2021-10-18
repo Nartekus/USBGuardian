@@ -10,6 +10,7 @@ from statistics import infectedDevicesCount
 from statistics import deviceCount
 from statistics import totalTimeOfScan
 
+print("scanAndRemove.py Enter")
 #Empty the log file
 os.system("sudo truncate -s 0 /opt/USBGuardian/logs/lastAnalysis.log")
 
@@ -45,3 +46,6 @@ with open("/opt/USBGuardian/logs/report.log") as report2, open ("/opt/USBGuardia
 	#Copy the content
 	reportLines = report2.readlines()
 	history.writelines(reportLines)
+
+print("scanAndRemove.py Exit")
+print("###")
