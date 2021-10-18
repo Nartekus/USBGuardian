@@ -1,3 +1,5 @@
+# Original link
+https://github.com/USBGuardian/USBGuardian
 
 # How to use
 Please download the following user manual explaining how to use the station:
@@ -23,3 +25,12 @@ Review your selections and click ‘Flash!’ to begin writing data to the SD ca
 # How it works
 We also created a document explaining how to recreate this software step by step:
 https://usbguardian.wordpress.com/documentation/
+
+# Nartekus changes
+No pre-built image available.
+
+This fork works on Raspberry Pi 4 model B. For an unexpected reason it doesn't work anymore on Raspberry Pi 3 model B (libEGL warning : DRI2 failed to authenticate).
+
+Some minor changes have been done to the code (due to : compilation error, usb eject, missing include, etc...).
+
+It works the same way as the original project.
