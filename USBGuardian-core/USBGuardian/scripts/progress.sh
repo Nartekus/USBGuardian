@@ -1,4 +1,21 @@
 #!/bin/bash
+
+############################################################################################
+# Auteurs : USBGuardian (code original v1.0), Raphaël "Nartekus" BOULANGER (modifications, #
+#           corrections, debug, portabilité Raspberry Pi 4 model B, v2.0)                  #
+# Version : v2.1                                                                           #
+# Description : Ce script gère le background de la barre de progression statuant sur       #
+#               l'état d'avancement du scan actuel. Par calcul, en fonction du nombre de   #
+#               fichiers dans le périphérique USB et en fonction de l'avancement de        #
+#               l'analyse, la barre de progression avancera plus ou moins vite. Avec pour  #
+#               constante les 25 premiers pourcents servants d'initialisation de notre     #
+#               Antivirus.                                                                 #
+#                                                                                          #
+# Historique des modifications : 18/10/2021 --> v2.0 : Ajout des 3 echo à des fins de      #
+#                                débuggage.                                                #
+#                                12/11/2021 --> v2.1 : Ajout de ce cadre de commentaires.  #
+############################################################################################
+
 echo "progress.sh Enter"
 # Go to mounted usb  
 cd /mnt/usb/

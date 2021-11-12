@@ -1,6 +1,16 @@
 #!/usr/bin/python3.5
 #-*- coding:utf-8 -*-
 
+############################################################################################
+# Auteurs : USBGuardian (code original v1.0), Raphaël "Nartekus" BOULANGER (modifications, #
+#           corrections, debug, portabilité Raspberry Pi 4 model B, v2.x)                  #
+# Version : v2.0                                                                           #
+# Description : Cette bibliothèque de scripts définie les fonctions permettant la mise à   #
+#               jour du fichier de statistiques.                                           #
+#                                                                                          #
+# Historique des modifications : 12/11/2021 --> v2.0 : Ajout de ce cadre de commentaires.  #
+############################################################################################
+
 import os
 import re
 

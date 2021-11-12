@@ -1,6 +1,20 @@
 #!/usr/bin/python3.5
 #-*- coding:utf-8 -*-
 
+############################################################################################
+# Auteurs : USBGuardian (code original v1.0), Raphaël "Nartekus" BOULANGER (modifications, #
+#           corrections, debug, portabilité Raspberry Pi 4 model B, v2.0)                  #
+# Version : v2.0                                                                           #
+# Description : Ce script permet le formatage du périphérique USB en fonction de s'il est  #
+#               partionné et le cas échéant de son format. Actuellement ce script ne peut  #
+#               pas être appelé, la fonction d'appel a été volontairement désactivé à des  #
+#               fins de tests.                                                             #
+#                                                                                          #
+# Historique des modifications : 18/10/2021 --> v2.0 : Ajout des 3 print à des fins de     #
+#                                débuggage.                                                #
+#                                12/11/2021 --> v2.1 : Ajout de ce cadre de commentaires.  #
+############################################################################################
+
 import os
 
 print("format.py Enter")

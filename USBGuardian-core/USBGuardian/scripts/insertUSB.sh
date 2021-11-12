@@ -1,4 +1,18 @@
 #!/bin/bash
+
+############################################################################################
+# Auteurs : USBGuardian (code original v1.0), Raphaël "Nartekus" BOULANGER (modifications, #
+#           corrections, debug, portabilité Raspberry Pi 4 model B, v2.x)                  #
+# Version : v2.1                                                                           #
+# Description : Ce script est lancé automatiquement lors de l'enfichage d'un périphérique  #
+#               USB. C'est le premier script à être lancé, il vérifie si le périphérique   #
+#               USB est partitionné et lance le montage adéquat en fonction de la réponse. #
+#                                                                                          #
+# Historique des modifications : 18/10/2021 --> v2 : Ajout des 3 echo à des fins de        #
+#                                débuggage.                                                #
+#                                12/11/2021 --> v2.1 : Ajout de ce cadre de commentaires.  #
+############################################################################################
+
 echo "insertUSB.sh Enter"
 #Unmount usb stick in case there is an old one
 sudo umount /mnt/usb
